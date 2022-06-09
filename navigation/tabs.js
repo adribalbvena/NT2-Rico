@@ -3,6 +3,7 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import HomeScreen from '../screens/HomeScreen';
 import MapScreen from '../screens/MapScreen';
 import FavScreen from '../screens/FavScreen';
+import ProfileScreen from '../screens/ProfileScreen';
 
 
 const Tab = createMaterialBottomTabNavigator();
@@ -40,6 +41,15 @@ const Tabs = () => {
                 tabBarLabel: 'Favoritos',
                 tabBarIcon: ({ color }) => (
                 <MaterialCommunityIcons name="bookmark" color={color} size={26} />
+                ),
+            }} />
+             <Tab.Screen 
+             name="Perfil" 
+             component={ProfileScreen}
+             options= {{
+                tabBarLabel: 'Perfil',
+                tabBarIcon: ({ color }) => (
+                <MaterialCommunityIcons name="account" color={color} size={26} />
                 ),
             }} />
             
