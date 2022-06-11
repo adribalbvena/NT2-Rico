@@ -4,9 +4,11 @@ import Tabs from './navigation/tabs';
 
 const App = () => {
   return(
+    //context
     <NavigationContainer>
       <Tabs />
     </NavigationContainer>
+    //context
   );
 }
 
