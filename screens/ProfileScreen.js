@@ -3,7 +3,7 @@ import { View, Text, StyleSheet } from 'react-native';
 
 const ProfileScreen = ({navigation}) => {
   return (
-    <View>
+    <View style={styles.container}>
         <Text>Mi Perfil</Text>
     </View>
   );
