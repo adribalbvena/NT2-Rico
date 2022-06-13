@@ -1,13 +1,33 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import Tabs from './navigation/tabs';
+import { getCurrentLocation } from './utils/helpers';
+import LocationContext, { locationObject } from './services/LocationContext';
 
 const App = () => {
-  return(
+
+  const [location, setLocation] = useState(locationObject)
+
+  useEffect(() => {
+    (async () => {
+      const response = await getCurrentLocation();
+      if (response.status) {
+
+        // console.log("Location ", response.location)
+        setLocation(response.location)
+
+      }
+    })() //asincrono autollamado
+  }, [])
+
+  return (
     //context
-    <NavigationContainer>
-      <Tabs />
-    </NavigationContainer>
+    <LocationContext.Provider value={{location}}>
+      <NavigationContainer>
+        <Tabs />
+      </NavigationContainer>
+    </LocationContext.Provider>
+
     //context
   );
 }
