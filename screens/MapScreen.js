@@ -12,9 +12,9 @@ const MapScreen = ({ navigation }) => {
     // latit: 33.640411
   };
 
-  React.useEffect(() => {
-    getCurrentLocation()
-  }, [])
+  // React.useEffect(() => {
+  //   getCurrentLocation()
+  // }, [])
 
 
   return (
@@ -30,9 +30,7 @@ const MapScreen = ({ navigation }) => {
         mapType='standard'
       >
 
-        <Marker>
-        </Marker>
-      {/* <Marker key={1} coordinate={{latitude: orientacion.latit, longitude: orientacion.long}}/> */}
+      <Marker key={1} coordinate={{latitude: orientacion.latit, longitude: orientacion.long}}/>
         
         </MapView>
       {/* <Button title="Click Here" onPress={() => alert("Button Clicked!")}/> */}
