@@ -1,20 +1,64 @@
+import React, { useState, useEffect } from 'react';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import HomeScreen from '../screens/HomeScreen';
 import MapScreen from '../screens/MapScreen';
 import FavScreen from '../screens/FavScreen';
 import ProfileScreen from '../screens/ProfileScreen';
-
+import { getCurrentLocation } from '../utils/helpers';
+import LocationContext, {locationObject} from '../services/LocationContext';
+import axios from 'axios';
+import RestaurantsContext, {restaurantsObject} from '../services/RestaurantContext';
 
 const Tab = createMaterialBottomTabNavigator();
 
 const Tabs = () => {
+    const [location, setLocation] = useState(locationObject);
+    const [data, setData] = useState(restaurantsObject);
+    const [isLoading, setIsLoading] = useState(true);
+
+    useEffect(() => {
+      (async () => {
+        const response = await getCurrentLocation();
+        if (response.status) { 
+          // console.log("Location ", response.location)
+          setLocation(response.location)
+          setIsLoading(true);
+          axios
+          .get(`https://travel-advisor.p.rapidapi.com/restaurants/list-by-latlng`, {
+            params: {
+              latitude: response.location.latitude,
+              longitude: response.location.longitude,
+              limit: '4',
+              currency: 'USD',
+              distance: '2',
+              open_now: 'false',
+              lunit: 'km',
+              lang: 'es_ES'
+            },
+            headers: {
+              'X-RapidAPI-Host': 'travel-advisor.p.rapidapi.com',
+              'X-RapidAPI-Key': '4e5c5cb8d8msh9d1b9beebcf6c74p129864jsn70b0455404fb'
+            }
+          })
+          .then((res) => {
+            setData(res.data.data);
+            setIsLoading(false);
+          });  
+        }
+      })() //asincrono autollamado
+    }, []);
+
+
     return(
+    <RestaurantsContext.Provider value={{data, isLoading}}>
+    <LocationContext.Provider value={{location}}>
         <Tab.Navigator
             initialRouteName= "Home"
             activeColor="#ffff"
             inactiveColor="#ffc299"
             barStyle={{ backgroundColor: '#ff6600'}} >
+         
              <Tab.Screen 
              name="Home"
              component={HomeScreen}
@@ -51,10 +95,10 @@ const Tabs = () => {
                 tabBarIcon: ({ color }) => (
                 <MaterialCommunityIcons name="account" color={color} size={26} />
                 ),
-            }} />
-            
+            }} />            
         </Tab.Navigator>
-
+    </LocationContext.Provider>
+    </RestaurantsContext.Provider>
     );
 }
 

@@ -1,7 +1,5 @@
 import { Text, Image } from "react-native";
 import { Card } from '@rneui/themed';
-//import { Image } from '@rneui/themed';
-
 
 export default ({ restaurant }) => {
     return (
