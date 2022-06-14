@@ -8,9 +8,9 @@ const MapScreen = ({ navigation }) => {
 
   const { location } = useContext(LocationContext)
 
-  useEffect(() => {
-    console.log("contexto dentro de MAP", location)
-  }, [location])
+  // useEffect(() => {
+  //   //console.log("contexto dentro de MAP", location)
+  // }, [location])
 
   return (
     <View styles={styles.container}>
@@ -31,7 +31,6 @@ const MapScreen = ({ navigation }) => {
         {/* <Marker key={1} coordinate={{latitude: orientacion.latit, longitude: orientacion.long}}/> */}
 
       </MapView> 
-      {/* <Button title="Click Here" onPress={() => alert("Button Clicked!")}/> */}
     </View>
   );
 };
