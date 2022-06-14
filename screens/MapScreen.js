@@ -1,39 +1,36 @@
-import React, {useEffect} from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { View, Text, Button, StyleSheet } from "react-native";
 import MapView, { Marker, Pilyline } from "react-native-maps";
+import LocationContext from "../services/LocationContext";
 import { getCurrentLocation } from '../utils/helpers';
 
 const MapScreen = ({ navigation }) => {
 
-  const orientacion = {
-    long: -58.528763,
-    latit: -34.558106
-    // long: -84.419853,
-    // latit: 33.640411
-  };
+  const { location } = useContext(LocationContext)
 
-  // React.useEffect(() => {
-  //   getCurrentLocation()
-  // }, [])
-
+  // useEffect(() => {
+  //   //console.log("contexto dentro de MAP", location)
+  // }, [location])
 
   return (
     <View styles={styles.container}>
       <MapView
         style={{ width: "100%", height: "100%" }}
         initialRegion={{
-          latitude: orientacion.latit,
-          longitude: orientacion.long,
+          latitude: location.latitude,
+          longitude: location.longitude,
           latitudeDelta: 0.09,
           longitudeDelta: 0.04,
         }}
         mapType='standard'
       >
 
-      <Marker key={1} coordinate={{latitude: orientacion.latit, longitude: orientacion.long}}/>
-        
-        </MapView>
-      {/* <Button title="Click Here" onPress={() => alert("Button Clicked!")}/> */}
+        {/* TODO: Arreglar Marker */}
+        {/* <Marker>
+        </Marker> */}
+        {/* <Marker key={1} coordinate={{latitude: orientacion.latit, longitude: orientacion.long}}/> */}
+
+      </MapView> 
     </View>
   );
 };

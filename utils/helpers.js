@@ -3,7 +3,7 @@ import { Alert } from "react-native";
 
 export const getCurrentLocation = async() => {
     const response = {status: false, location: null};
-    const resultPermissions = await Location.getForegroundPermissionsAsync();
+    const resultPermissions = await Location.requestForegroundPermissionsAsync();
     if (resultPermissions.status == "denied") {
         Alert.alert("Debes dar permiso para la localización");
         return response;
