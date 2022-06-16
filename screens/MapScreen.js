@@ -1,19 +1,20 @@
-import React, { useEffect, useState, useContext } from "react";
-import { View, Text, Button, StyleSheet } from "react-native";
-import MapView, { Marker, Pilyline } from "react-native-maps";
+import React, { useEffect, useContext } from "react";
+import { StyleSheet } from "react-native";
+import MapView, { Marker } from "react-native-maps";
+import { SafeAreaView } from "react-native-safe-area-context";
 import LocationContext from "../services/LocationContext";
-import { getCurrentLocation } from '../utils/helpers';
+import RestaurantsContext from '../services/RestaurantContext';
 
 const MapScreen = ({ navigation }) => {
+  const { location } = useContext(LocationContext);
+  const { data } = useContext(RestaurantsContext);
 
-  const { location } = useContext(LocationContext)
-
-  // useEffect(() => {
-  //   //console.log("contexto dentro de MAP", location)
-  // }, [location])
-
+  useEffect(() => {
+    console.log("contexto dentro de MAP", location)
+  }, [location])
+  
   return (
-    <View styles={styles.container}>
+    <SafeAreaView styles={styles.container}>
       <MapView
         style={{ width: "100%", height: "100%" }}
         initialRegion={{
@@ -22,16 +23,28 @@ const MapScreen = ({ navigation }) => {
           latitudeDelta: 0.09,
           longitudeDelta: 0.04,
         }}
-        mapType='standard'
+        mapType="standard"
       >
 
-        {/* TODO: Arreglar Marker */}
-        {/* <Marker>
-        </Marker> */}
-        {/* <Marker key={1} coordinate={{latitude: orientacion.latit, longitude: orientacion.long}}/> */}
-
-      </MapView> 
-    </View>
+      {data.map((marker, index) => {
+         return <Marker
+            key={index}
+            coordinate={{
+               latitude: parseFloat(marker?.latitude ? marker.latitude : location.latitude,),
+               longitude: parseFloat(marker?.longitude ? marker.longitude : location.longitude),
+            }}
+            title={marker.name}
+          />
+          })}
+        {/* <Marker
+          key={1}
+          coordinate={{
+            latitude: location.latitude,
+            longitude: location.longitude
+          }}
+        /> */}
+      </MapView>
+    </SafeAreaView>
   );
 };
 
