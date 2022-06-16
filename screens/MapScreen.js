@@ -1,4 +1,4 @@
-import React, { useEffect, useContext } from "react";
+import React, { useContext } from "react";
 import { StyleSheet } from "react-native";
 import MapView, { Marker } from "react-native-maps";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -8,10 +8,6 @@ import RestaurantsContext from '../services/RestaurantContext';
 const MapScreen = ({ navigation }) => {
   const { location } = useContext(LocationContext);
   const { data } = useContext(RestaurantsContext);
-
-  useEffect(() => {
-    console.log("contexto dentro de MAP", location)
-  }, [location])
   
   return (
     <SafeAreaView styles={styles.container}>
