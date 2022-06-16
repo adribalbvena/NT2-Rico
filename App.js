@@ -12,7 +12,7 @@ const App = () => {
   const [authenticationData, setAuthenticationData] = useState(authData);
   return (
     <AuthenticationContxt.Provider
-      value={(authenticationData, setAuthenticationData)}
+      value={{ authenticationData, setAuthenticationData }}
     >
       <NavigationContainer>
         {authenticationData.id ? (
