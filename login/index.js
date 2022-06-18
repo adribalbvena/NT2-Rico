@@ -19,6 +19,7 @@ const Login = () => {
       "162646232099-rfc00gltvboipta6und49e4m3vgvsjrs.apps.googleusercontent.com",
   });
 
+  //guardo la data en el estado global
   const { authenticationData, setAuthenticationData } = useContext(
     authenticationContext
   );
@@ -32,6 +33,7 @@ const Login = () => {
         `https://www.googleapis.com/oauth2/v1/userinfo?alt=json&access_token=${authentication.accessToken}`
       )
         .then((res) => res.json())
+        //me modifica el estado global
         .then((data) => setAuthenticationData(data));
     }
   }, [response]);
