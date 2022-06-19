@@ -1,11 +1,26 @@
-import { Text, Image } from "react-native";
-import { Card } from '@rneui/themed';
+import { Text, Image, StyleSheet } from "react-native";
+import { Card, Icon } from '@rneui/themed';
+import { Button } from "@rneui/base";
+import { useEffect, useState } from "react";
+import { storeData, removeData } from "../services/AsyncStorage";
+import FavoriteContext, { favoriteObject } from "../services/FavoriteContext";
 
 export default ({ restaurant }) => {
+    const [isAdded, setIsAdded] = useState();
+
+    const storage = () => {
+        if (!isAdded) {
+            storeData(restaurant.location_id, restaurant);
+            setIsAdded(true);
+        } else {
+            removeData(restaurant.location_id);
+            setIsAdded(false);
+        }      
+    }
+    
     return (
-        <Card containerStyle={{ marginTop: 15 }}>
+            <Card containerStyle={{ marginTop: 15 }}>
             <Card.Title>{restaurant.name}</Card.Title>
-            {/* <Image source={{uri: restaurant.photo.images.small.uri}}/> */}
             <Card.Divider />
             <Text h1>
                 Dirección: {restaurant.address}
@@ -16,6 +31,11 @@ export default ({ restaurant }) => {
             <Text h3>
                 Puntuación: {restaurant.rating}
             </Text>
-        </Card>
-    )
-}
+            <Button type="clear" 
+            style={{flexDirection: "row", justifyContent: "flex-end"}}
+            onPress={storage}>
+                {isAdded ? <Icon name="bookmark" color="#ff6600" /> : <Icon name="bookmark-outline" color="#ff6600" />}    
+            </Button>          
+        </Card>        
+    );
+};

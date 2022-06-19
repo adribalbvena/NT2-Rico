@@ -21,7 +21,6 @@ const Tabs = () => {
       (async () => {
         const response = await getCurrentLocation();
         if (response.status) { 
-          // console.log("Location ", response.location)
           setLocation(response.location)
           setIsLoading(true);
           axios
@@ -38,11 +37,14 @@ const Tabs = () => {
             },
             headers: {
               'X-RapidAPI-Host': 'travel-advisor.p.rapidapi.com',
-              'X-RapidAPI-Key': '4e5c5cb8d8msh9d1b9beebcf6c74p129864jsn70b0455404fb'
+              'X-RapidAPI-Key': '4b1c5feb47msh11333100d7627a8p1a682bjsn19c7b4c54056'
             }
           })
           .then((res) => {
-            setData(res.data.data);
+            const result = res.data.data;
+            setData(result
+              .filter(res => res.name != undefined)
+              .map(res => ({location_id: res.location_id, name: res.name, address: res.address, phone: res.phone, rating: res.rating, latitude: res.latitude, longitude: res.longitude})));
             setIsLoading(false);
           });  
         }

@@ -11,20 +11,22 @@ import { StyleSheet, Text, View } from "react-native";
 const App = () => {
   const [authenticationData, setAuthenticationData] = useState(authData);
   return (
-    <AuthenticationContxt.Provider
-      value={{ authenticationData, setAuthenticationData }}
-    >
+    // <AuthenticationContxt.Provider
+    //   value={{ authenticationData, setAuthenticationData }}
+    // >
       <NavigationContainer>
-        {authenticationData.id ? (
+        <Tabs />
+            <StatusBar style="auto" />
+        {/* {authenticationData.id ? (
           <>
             <Tabs />
             <StatusBar style="auto" />
           </>
         ) : (
           <Login />
-        )}
+        )} */}
       </NavigationContainer>
-    </AuthenticationContxt.Provider>
+    // </AuthenticationContxt.Provider>
   );
 };
 

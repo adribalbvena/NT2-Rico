@@ -32,13 +32,13 @@ const MapScreen = ({ navigation }) => {
             title={marker.name}
           />
           })}
-        {/* <Marker
+        <Marker
           key={1}
           coordinate={{
             latitude: location.latitude,
             longitude: location.longitude
           }}
-        /> */}
+        />
       </MapView>
     </SafeAreaView>
   );
