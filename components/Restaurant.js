@@ -2,7 +2,7 @@ import { Text, Image, StyleSheet } from "react-native";
 import { Card, Icon } from '@rneui/themed';
 import { Button } from "@rneui/base";
 import { useEffect, useState } from "react";
-import { storeData, removeData } from "../services/AsyncStorage";
+import { storeData, removeItemData, clearAll } from "../services/AsyncStorage";
 import FavoriteContext, { favoriteObject } from "../services/FavoriteContext";
 
 export default ({ restaurant }) => {
@@ -13,7 +13,7 @@ export default ({ restaurant }) => {
             storeData(restaurant.location_id, restaurant);
             setIsAdded(true);
         } else {
-            removeData(restaurant.location_id);
+            removeItemData(restaurant);
             setIsAdded(false);
         }      
     }

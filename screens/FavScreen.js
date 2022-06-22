@@ -12,6 +12,7 @@ const [rest, setRest] = useState();
     importData().then(data => {
       //console.log("Encontro data?", data);
         setRest(data);
+        //console.log("seteo data?", rest);
            
     });
   }, [rest]) //con la dependencia rest para q cada vez q agrego o quito un favorito se ejecute
