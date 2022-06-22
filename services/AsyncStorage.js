@@ -35,7 +35,7 @@ const importData = async () => {
       const result = await AsyncStorage.multiGet(keys);
       //console.log(result);
       let res = [];
-      result.map(req => {
+      return result.map(req => {
         req.forEach(element => {
           //console.log(element);
           if (element != null) {
@@ -73,7 +73,7 @@ const removeItemData = async (favorite) => {
     // }  
   }
 
-  removeValue = async (key) => {
+const  removeValue = async (key) => {
     try {
       await AsyncStorage.removeItem(key)
     } catch(e) {
