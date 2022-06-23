@@ -16,6 +16,7 @@ const Tabs = () => {
     const [location, setLocation] = useState(locationObject);
     const [data, setData] = useState(restaurantsObject);
     const [isLoading, setIsLoading] = useState(true);
+    const [isFavorite, setIsFavorite] = useState();
 
     useEffect(() => {
       (async () => {
@@ -53,7 +54,7 @@ const Tabs = () => {
 
 
     return(
-    <RestaurantsContext.Provider value={{data, isLoading}}>
+    <RestaurantsContext.Provider value={{data, isLoading, isFavorite, setIsFavorite}}>
     <LocationContext.Provider value={{location}}>
         <Tab.Navigator
             initialRouteName= "Home"

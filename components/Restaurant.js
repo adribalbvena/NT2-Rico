@@ -1,20 +1,24 @@
 import { Text, Image, StyleSheet } from "react-native";
 import { Card, Icon } from '@rneui/themed';
 import { Button } from "@rneui/base";
-import { useEffect, useState } from "react";
-import { storeData, removeItemData, clearAll, removeValue } from "../services/AsyncStorage";
-import FavoriteContext, { favoriteObject } from "../services/FavoriteContext";
+import { useState, useContext } from "react";
+import { storeData, getData, removeValue } from "../services/AsyncStorage";
+import RestaurantsContext from "../services/RestaurantContext";
 
 export default ({ restaurant }) => {
-    const [isAdded, setIsAdded] = useState();
+    //const [isAdded, setIsAdded] = useState();
+    const { isFavorite, setIsFavorite } = useContext(RestaurantsContext);
+
 
     const storage = () => {
-        if (!isAdded) {
+        if (!isFavorite) {
             storeData(restaurant.location_id, restaurant);
-            setIsAdded(true);
+
+            setIsFavorite(true);
         } else {
             removeValue(restaurant.location_id);
-            setIsAdded(false);
+
+            setIsFavorite(false);
         }      
     }
     
@@ -34,7 +38,8 @@ export default ({ restaurant }) => {
             <Button type="clear" 
             style={{flexDirection: "row", justifyContent: "flex-end"}}
             onPress={storage}>
-                {isAdded ? <Icon name="bookmark" color="#ff6600" /> : <Icon name="bookmark-outline" color="#ff6600" />}    
+                {isFavorite ? <Icon name="bookmark" color="#ff6600" /> : <Icon name="bookmark-outline" color="#ff6600" />}
+                {/* {getData(restaurant.location_id) != undefined ? <Icon name="bookmark" color="#ff6600" /> : <Icon name="bookmark-outline" color="#ff6600" />}     */}
             </Button>          
         </Card>        
     );
