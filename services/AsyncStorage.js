@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const isObject = (value) => typeof value === 'object'
@@ -28,58 +27,22 @@ const getData = async (key) => {
 }
 
 
-
 const importData = async () => {
     try {
       const keys = await AsyncStorage.getAllKeys();
       const result = await AsyncStorage.multiGet(keys);
-      //console.log(result);
-      let res = [];
-      return result.map(req => {
-        req.forEach(element => {
-          //console.log(element);
-          if (element != null) {
-            res.push(JSON.parse(element));
-          }
-        });
-        //console.log(res[1]);
-        return res[1];
-      });
-      //return result != null ? result.map(req => JSON.parse(req[1])) : null;
+      return result != null ? result.map(req => JSON.parse(req[1])) : null;
     } catch (error) {
       console.error(error)
     }
-  }
-
-const removeItemData = async (favorite) => {
-    const keys = await AsyncStorage.getAllKeys();
-    const result = await AsyncStorage.multiGet(keys);
-    result.map(req => {
-      req.forEach(element => {
-        if (element === JSON.stringify(favorite)) {
-          return removeValue(element)
-          .then(result => {
-            console.log(result);
-          });
-        }
-      })
-    })
-
-    // try {
-    //   await AsyncStorage.removeItem(key);
-    // } catch(e) {
-    //   // remove error
-    //   console.log(e);
-    // }  
   }
 
 const  removeValue = async (key) => {
     try {
       await AsyncStorage.removeItem(key)
     } catch(e) {
-      // remove error
+      console.log(e);
     } 
-    console.log('Done.')
   }
 
 const clearAll = async () => {
@@ -94,6 +57,6 @@ export {
     storeData,
     getData,
     importData,
-    removeItemData,
+    removeValue,
     clearAll
 }

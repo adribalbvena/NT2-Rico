@@ -11,12 +11,11 @@ const FavScreen = ({ navigation }) => {
 
   useFocusEffect(
     useCallback(() => {
-      console.log("Aqui volvi a entrar en la vista")
+      //console.log("Aqui volvi a entrar en la vista")
       importData().then(data => {
-        console.log("Encontro data?", data);
+        //console.log("Encontro data?", data);
         setRest(data);
         //console.log("seteo data?", rest);
-
       });
     }, [])
   );
