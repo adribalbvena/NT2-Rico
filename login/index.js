@@ -27,8 +27,6 @@ const Login = () => {
   useEffect(() => {
     if (response?.type === "success") {
       const { authentication } = response;
-      console.log(authenticationData);
-
       fetch(
         `https://www.googleapis.com/oauth2/v1/userinfo?alt=json&access_token=${authentication.accessToken}`
       )
