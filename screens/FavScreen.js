@@ -1,22 +1,43 @@
-import React from 'react'
-import { View, Text, Button, StyleSheet } from 'react-native';
+import React, { useCallback, useState } from 'react'
+import { View, Text, FlatList, StyleSheet, SafeAreaView } from 'react-native';
+import { importData } from '../services/AsyncStorage/index';
+import Favorite from '../components/Favorite';
 
-const FavScreen = ({navigation}) => {
+import { useFocusEffect } from '@react-navigation/native';
+
+const FavScreen = ({ navigation }) => {
+  const [restaurants, setRestaurants] = useState(null);
+  const [reloadData, setReloadData] = useState(false);
+
+  //Falta traer el contexto de autenticacion y hacer un if que diga q si esta logeado me muestre los favoritos de ese usuario
+  useFocusEffect(
+    useCallback(() => {
+      importData().then(data => {
+        setRestaurants(data);
+      });
+      setReloadData(false);
+    }, [reloadData])
+  );
+
+
   return (
     <View>
-        <Text>Favoritos</Text>
-        <Button title="Click Here" onPress={() => alert("Button Clicked!")}/>
+        <FlatList
+            data={restaurants}
+            //keyExtractor={(item, index) => index.toString() }
+            renderItem={(restaurant) => (
+            <Favorite
+                restaurant={restaurant}
+                //setLoading={setLoading}
+                navigation={navigation}
+                setReloadData={setReloadData}
+            />
+            )}
+         />  
     </View>
+
+
   );
 }
 
 export default FavScreen;
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        alignItems: "center",
-        justifyContent: "center",
-        backgroundColor: "#8fcbbc"
-    },
-});

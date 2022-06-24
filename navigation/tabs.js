@@ -42,7 +42,17 @@ const Tabs = () => {
             }
           })
           .then((res) => {
-            setData(res.data.data);
+            const result = res.data.data;
+            setData(result
+              .filter(res => res.name != undefined)
+              .map(res => ({location_id: res.location_id, 
+                            name: res.name, 
+                            address: res.address, 
+                            phone: res.phone, 
+                            rating: res.rating, 
+                            latitude: res.latitude, 
+                            longitude: res.longitude, 
+                            photo: res.photo.images.original.url})));
             setIsLoading(false);
           });  
         }
