@@ -9,7 +9,6 @@ const FavScreen = ({ navigation }) => {
   const [restaurants, setRestaurants] = useState(null);
   const [reloadData, setReloadData] = useState(false);
 
-  //Falta traer el contexto de autenticacion y hacer un if que diga q si esta logeado me muestre los favoritos de ese usuario
   useFocusEffect(
     useCallback(() => {
       importData().then(data => {
@@ -22,21 +21,18 @@ const FavScreen = ({ navigation }) => {
 
   return (
     <View>
-        <FlatList
-            data={restaurants}
-            //keyExtractor={(item, index) => index.toString() }
-            renderItem={(restaurant) => (
+       <FlatList
+          data={restaurants}
+          //keyExtractor={(item, index) => index.toString() }
+          renderItem={(restaurant) => (
             <Favorite
-                restaurant={restaurant}
-                //setLoading={setLoading}
-                navigation={navigation}
-                setReloadData={setReloadData}
+              restaurant={restaurant}
+              navigation={navigation}
+              setReloadData={setReloadData}
             />
-            )}
-         />  
+          )}
+        />        
     </View>
-
-
   );
 }
 

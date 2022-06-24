@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, StyleSheet, Button, Image } from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity, Image } from "react-native";
 //import profileService from "../services/profileContext/index";
 import { useEffect, useState, useContext } from "react";
 import { Avatar } from "@rneui/themed";
@@ -42,11 +42,15 @@ const ProfileScreen = ({ navigation }) => {
         <Card containerStyle={{ marginTop: 15 }}>
           <Card.Title>Información de Contacto</Card.Title>
           <Card.Divider />
-          <Text h1>NOMBRE: {authenticationData.name}</Text>
+          <Text h1>Nombre: {authenticationData.name}</Text>
           <Text h2>Email: {authenticationData.email}</Text>
         </Card>
       </View>
-      <Button style={styles.button} title="Logout" onPress={logout} />
+      <TouchableOpacity 
+        style={styles.logoutButton} 
+        onPress={logout}> 
+          <Text style={styles.txt}>Salir</Text>
+      </TouchableOpacity>
     </View>
   );
 };
@@ -64,4 +68,16 @@ const styles = StyleSheet.create({
     height: 50,
     width: 50,
   },
+  logoutButton: {
+    marginTop: 20,
+    padding: 10,
+    borderRadius: 10,
+    backgroundColor: "#ff6600",
+  },
+  txt: {
+    color: "#ffff",
+    fontSize: 16,
+    fontWeight: "bold",
+  }
+
 });
