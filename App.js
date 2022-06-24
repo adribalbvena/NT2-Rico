@@ -13,10 +13,7 @@ const App = () => {
   const [authenticationData, setAuthenticationData] = useState(authData);
 
   useEffect(() => {
-    console.log("Aqui les demuestro que la data si esta guardada en la cache");
-
     getData("authData").then((data) => {
-      console.log("Encontro data?", data);
       //pregunto si existe la data && si existe el id
       if (data?.id) {
         setAuthenticationData(data);
