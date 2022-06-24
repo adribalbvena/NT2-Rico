@@ -16,7 +16,6 @@ const Tabs = () => {
     const [location, setLocation] = useState(locationObject);
     const [data, setData] = useState(restaurantsObject);
     const [isLoading, setIsLoading] = useState(true);
-    const [isFavorite, setIsFavorite] = useState();
 
     useEffect(() => {
       (async () => {
@@ -45,7 +44,14 @@ const Tabs = () => {
             const result = res.data.data;
             setData(result
               .filter(res => res.name != undefined)
-              .map(res => ({location_id: res.location_id, name: res.name, address: res.address, phone: res.phone, rating: res.rating, latitude: res.latitude, longitude: res.longitude})));
+              .map(res => ({location_id: res.location_id, 
+                            name: res.name, 
+                            address: res.address, 
+                            phone: res.phone, 
+                            rating: res.rating, 
+                            latitude: res.latitude, 
+                            longitude: res.longitude, 
+                            photo: res.photo.images.original.url})));
             setIsLoading(false);
           });  
         }
@@ -54,7 +60,7 @@ const Tabs = () => {
 
 
     return(
-    <RestaurantsContext.Provider value={{data, isLoading, isFavorite, setIsFavorite}}>
+    <RestaurantsContext.Provider value={{data, isLoading}}>
     <LocationContext.Provider value={{location}}>
         <Tab.Navigator
             initialRouteName= "Home"

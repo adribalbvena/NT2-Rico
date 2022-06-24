@@ -1,31 +1,39 @@
-import { Text, Image, StyleSheet } from "react-native";
+import { Text, StyleSheet, Image } from "react-native";
 import { Card, Icon } from '@rneui/themed';
-import { Button } from "@rneui/base";
-import { useState, useContext } from "react";
-import { storeData, getData, removeValue } from "../services/AsyncStorage";
-import RestaurantsContext from "../services/RestaurantContext";
+import { useState, useEffect, useCallback } from "react";
+import { storeData, getIsFavorite, removeValue } from "../services/AsyncStorage";
+import { useFocusEffect } from '@react-navigation/native';
+
 
 export default ({ restaurant }) => {
-    //const [isAdded, setIsAdded] = useState();
-    const { isFavorite, setIsFavorite } = useContext(RestaurantsContext);
+    const [isFavorite, setIsFavorite] = useState(false);
+    
+    useFocusEffect(
+        useCallback(() => {
+            (async() => {
+                if(restaurant) {
+                    const response = await getIsFavorite(restaurant.location_id);
+                    response.statusRespone && setIsFavorite(response.isFavorite);
+                }
+            })()
+        }, [restaurant])
+      );
+    
+    const addFavorite = () => {
+        storeData(restaurant.location_id, restaurant);
+        setIsFavorite(true);
+    }
 
-
-    const storage = () => {
-        if (!isFavorite) {
-            storeData(restaurant.location_id, restaurant);
-
-            setIsFavorite(true);
-        } else {
-            removeValue(restaurant.location_id);
-
-            setIsFavorite(false);
-        }      
+    const removeFavorite = () => {
+        removeValue(restaurant.location_id);
+        setIsFavorite(false);
     }
     
     return (
             <Card containerStyle={{ marginTop: 15 }}>
             <Card.Title>{restaurant.name}</Card.Title>
             <Card.Divider />
+            <Image source={{uri: restaurant.photo}} style={{height: 200, width: 250, marginBottom: 15}} />
             <Text h1>
                 Dirección: {restaurant.address}
             </Text>
@@ -35,12 +43,14 @@ export default ({ restaurant }) => {
             <Text h3>
                 Puntuación: {restaurant.rating}
             </Text>
-            <Button type="clear" 
+            <Icon 
+            name={isFavorite ? "bookmark" : "bookmark-outline"}
+            onPress={isFavorite ? removeFavorite : addFavorite}
+            color="#ff6600"
             style={{flexDirection: "row", justifyContent: "flex-end"}}
-            onPress={storage}>
-                {isFavorite ? <Icon name="bookmark" color="#ff6600" /> : <Icon name="bookmark-outline" color="#ff6600" />}
-                {/* {getData(restaurant.location_id) != undefined ? <Icon name="bookmark" color="#ff6600" /> : <Icon name="bookmark-outline" color="#ff6600" />}     */}
-            </Button>          
-        </Card>        
+            />
+        </Card>    
+            
     );
 };
+

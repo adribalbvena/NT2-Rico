@@ -26,6 +26,17 @@ const getData = async (key) => {
     }
 }
 
+const getIsFavorite = async (key) => {
+  const result = {statusRespone: true, error: null, isFavorite: false};
+  try {
+      const res = await getData(key);
+      result.isFavorite = res != null;
+  } catch (e) {
+      result.statusRespone = false;
+      result.error = e;
+  }
+  return result;
+}
 
 const importData = async () => {
     try {
@@ -56,6 +67,7 @@ const clearAll = async () => {
 export {
     storeData,
     getData,
+    getIsFavorite,
     importData,
     removeValue,
     clearAll

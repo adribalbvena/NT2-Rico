@@ -1,42 +1,57 @@
-import { Text, Image, StyleSheet } from "react-native";
+import { Text, Alert, Image, StyleSheet } from "react-native";
 import { Card, Icon } from '@rneui/themed';
 import { Button } from "@rneui/base";
 import { useEffect, useState, useContext } from "react";
 import { storeData, removeValue } from "../services/AsyncStorage";
 import RestaurantsContext from "../services/RestaurantContext";
 
-export default ({ favorite }) => {
-    //const [isFavorite, setIsFavorite] = useState(true);
-    const { isFavorite, setIsFavorite } = useContext(RestaurantsContext);
+export default ({ restaurant, navigation, setReloadData }) => {
+    const {location_id, name, address, phone, rating, photo} = restaurant.item;
 
-    // useEffect(() => {
-    //   favorite.setIsFavorite(true);
-    // }, [])
-    
-
-    const removeFavorite = () => {
-            removeValue(favorite.location_id);
-            setIsFavorite(false);           
+    const confirmRemoveFavorite = () => {
+        Alert.alert(
+            "Eliminar restaurante de favoritos",
+            "¿Está seguro de querer borrar el restaurante de favoritos?",
+            [
+                {
+                    text: "No",
+                },
+                {
+                    text: "Sí",
+                    onPress: removeFavorite
+                }
+            ],
+            { cancelable: false }
+        )
     }
+
+    const removeFavorite = async() => {
+        removeValue(location_id);
+        setReloadData(true);
+    }
+
+
     
     return (
             <Card containerStyle={{ marginTop: 15 }}>
-            <Card.Title>{favorite.name}</Card.Title>
+            <Card.Title>{name}</Card.Title>
             <Card.Divider />
+            <Image source={{uri: photo}} style={{height: 200, width: 250, marginBottom: 15}} />
             <Text h1>
-                Dirección: {favorite.address}
+                Dirección: {address}
             </Text>
             <Text h2>
-                Teléfono: {favorite.phone}
+                Teléfono: {phone}
             </Text>
             <Text h3>
-                Puntuación: {favorite.rating}
+                Puntuación: {rating}
             </Text>
-            <Button type="clear" 
+            <Icon 
+            name="bookmark"
+            onPress={confirmRemoveFavorite}
+            color="#ff6600"
             style={{flexDirection: "row", justifyContent: "flex-end"}}
-            onPress={removeFavorite}>
-                {isFavorite ? <Icon name="bookmark" color="#ff6600" /> : null }    
-            </Button>          
+            />
         </Card>        
-    );
+    );  
 };
