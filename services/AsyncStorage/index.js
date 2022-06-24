@@ -44,7 +44,8 @@ const importData = async () => {
   try {
     const keys = await AsyncStorage.getAllKeys();
     const result = await AsyncStorage.multiGet(keys);
-    return result != null ? result.map(req => JSON.parse(req[1])) : null;
+    const resultWithoutUser = result.filter(res => res[0] !== "authData");
+    return resultWithoutUser != null ? resultWithoutUser.map(req => JSON.parse(req[1])) : null;
   } catch (error) {
   }
 }
