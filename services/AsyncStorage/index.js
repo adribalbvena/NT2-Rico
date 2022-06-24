@@ -26,6 +26,36 @@ const getData = async (key) => {
   }
 };
 
+
+const getIsFavorite = async (key) => {
+  const result = {statusRespone: true, error: null, isFavorite: false};
+  try {
+      const res = await getData(key);
+      result.isFavorite = res != null;
+  } catch (e) {
+      result.statusRespone = false;
+      result.error = e;
+  }
+  return result;
+}
+
+//Se utilizara para importar la data de favs guardados
+const importData = async () => {
+  try {
+    const keys = await AsyncStorage.getAllKeys();
+    const result = await AsyncStorage.multiGet(keys);
+    return result != null ? result.map(req => JSON.parse(req[1])) : null;
+  } catch (error) {
+  }
+}
+
+const  removeValue = async (key) => {
+  try {
+    await AsyncStorage.removeItem(key)
+  } catch(e) {
+  } 
+}
+
 const clearAll = async () => {
   try {
     await AsyncStorage.clear();
@@ -34,4 +64,9 @@ const clearAll = async () => {
   }
 };
 
-export { storeData, getData, clearAll };
+export { storeData,
+         getData,
+         getIsFavorite,
+         importData,
+         removeValue,
+         clearAll };
