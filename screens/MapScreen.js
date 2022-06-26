@@ -30,6 +30,7 @@ const MapScreen = ({ navigation }) => {
                longitude: parseFloat(marker?.longitude ? marker.longitude : location.longitude),
             }}
             title={marker.name}
+            image={require('../assets/marker_rico.png')}
           />
           })}
         <Marker
