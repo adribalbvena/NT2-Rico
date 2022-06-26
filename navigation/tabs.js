@@ -52,7 +52,8 @@ const Tabs = () => {
                             rating: res.rating, 
                             latitude: res.latitude, 
                             longitude: res.longitude, 
-                            photo: res.photo.images.original.url})));
+                            photo: null})))
+                            // res.photo.images.original.url;
             setIsLoading(false);
           });  
         }
