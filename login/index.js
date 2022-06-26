@@ -31,6 +31,7 @@ const Login = () => {
 
   return (
     <View style={styles.container}>
+      <Image source={require('../assets/RicoLogo.png')} style={{padding:40, margin: 40}}></Image>
       <StatusBar style="auto" />
       <TouchableOpacity 
         style={[styles.customButton, styles.shadowProp]}
