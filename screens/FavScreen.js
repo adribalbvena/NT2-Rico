@@ -20,7 +20,8 @@ const FavScreen = ({ navigation }) => {
 
 
   return (
-    <View>
+    <View style={styles.container}>
+      <Text>Favoritos</Text>
        <FlatList
           data={restaurants}
           //keyExtractor={(item, index) => index.toString() }
@@ -37,3 +38,14 @@ const FavScreen = ({ navigation }) => {
 }
 
 export default FavScreen;
+
+const styles = StyleSheet.create({
+  container: {
+    paddingTop: 40,
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: "#ffff",
+  },
+
+});

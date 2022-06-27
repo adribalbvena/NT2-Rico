@@ -33,7 +33,7 @@ export default ({ restaurant }) => {
             <Card containerStyle={{ marginTop: 15 }}>
             <Card.Title>{restaurant.name}</Card.Title>
             <Card.Divider />
-            <Image source={{uri: restaurant.photo}} style={{height: 200, width: 250, marginBottom: 15}} />
+            {/* <Image source={{uri: restaurant.photo}} style={{ height: 200, width: 250, marginBottom: 15, alignSelf: "center"}} /> */}
             <Text h1>
                 Dirección: {restaurant.address}
             </Text>

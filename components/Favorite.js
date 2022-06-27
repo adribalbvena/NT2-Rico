@@ -33,7 +33,7 @@ export default ({ restaurant, navigation, setReloadData }) => {
             <Card containerStyle={{ marginTop: 15 }}>
             <Card.Title>{name}</Card.Title>
             <Card.Divider />
-            <Image source={{uri: photo}} style={{height: 200, width: 250, marginBottom: 15}} />
+            {/* <Image source={{uri: photo}} style={{height: 200, width: 250, marginBottom: 15}} /> */}
             <Text h1>
                 Dirección: {address}
             </Text>
