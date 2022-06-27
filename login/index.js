@@ -41,7 +41,7 @@ const Login = () => {
           promptAsync();
         }}
       >
-        <Image source={{url: "https://www.freepnglogos.com/uploads/google-logo-png/google-logo-png-google-logos-vector-eps-cdr-svg-download-10.png"}} 
+        <Image source={require('../assets/google_logo.png')} 
               style={styles.googleImg}/>
         <Text style={styles.buttonTxt}>Continuar con Google</Text>
       </TouchableOpacity>
@@ -60,11 +60,13 @@ const styles = StyleSheet.create({
     padding: 20,
     backgroundColor: "#fff",
     borderRadius: 5,
+    borderWidth: 1,
+    borderColor: "#666666",
   },
   shadowProp: {
     shadowColor: '#171717',
     shadowOffset: {width: -2, height: 4},
-    shadowOpacity: 0.2,
+    shadowOpacity: 0.3,
     shadowRadius: 3,
   },
   googleImg: {
