@@ -43,17 +43,18 @@ const Tabs = () => {
           })
           .then((res) => {
             const result = res.data.data;
+            let url = null;
             setData(result
-              .filter(res => res.name != undefined)
+              .filter(res => res.name !== undefined)
               .map(res => ({location_id: res.location_id, 
                             name: res.name, 
                             address: res.address, 
                             phone: res.phone, 
                             rating: res.rating, 
                             latitude: res.latitude, 
-                            longitude: res.longitude, 
-                            photo: null})))
-                            // res.photo.images.original.url;
+                            longitude: res.longitude,
+                            // photo: res.photo.images.original.url,
+                            })));
             setIsLoading(false);
           });  
         }

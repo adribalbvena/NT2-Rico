@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
-import { StyleSheet } from "react-native";
-import MapView, { Marker } from "react-native-maps";
+import { Dimensions, StyleSheet } from "react-native";
+import MapView, { PROVIDER_GOOGLE, Marker } from "react-native-maps";
 import { SafeAreaView } from "react-native-safe-area-context";
 import LocationContext from "../services/LocationContext";
 import RestaurantsContext from '../services/RestaurantContext';
@@ -12,14 +12,20 @@ const MapScreen = ({ navigation }) => {
   return (
     <SafeAreaView styles={styles.container}>
       <MapView
-        style={{ width: "100%", height: "100%" }}
-        initialRegion={{
-          latitude: 52.3015493,
-          longitude: 4.6939769,
-         // latitude: location.latitude,
-         // longitude: location.longitude,
-          latitudeDelta: 0.09,
-          longitudeDelta: 0.04,
+        style={styles.map}
+         provider= {PROVIDER_GOOGLE}
+        // initialRegion={{
+        //   latitude: location.latitude,
+        //   longitude: location.longitude,
+        //   latitudeDelta: 0.001,
+        //   longitudeDelta: 0.001,
+        // }}
+        initialCamera={{
+          center: { latitude: location.latitude,  longitude: location.longitude },
+          pitch: 0,
+          zoom: 15,
+          heading: 0,
+          altitude: 1000,
         }}
         mapType="standard"
       >
@@ -32,6 +38,7 @@ const MapScreen = ({ navigation }) => {
                longitude: parseFloat(marker?.longitude ? marker.longitude : location.longitude),
             }}
             title={marker.name}
+            image={require('../assets/marker_rico.png')}
           />
           })}
         <Marker
@@ -50,9 +57,10 @@ export default MapScreen;
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-    backgroundColor: "#8fcbbc",
+    backgroundColor: "#fff",
   },
+  map: {
+    width: Dimensions.get('window').width,
+    height: Dimensions.get('window').height,
+  }
 });
