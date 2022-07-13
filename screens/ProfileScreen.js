@@ -14,7 +14,6 @@ const ProfileScreen = ({ navigation }) => {
   );
 
   const logout = () => {
-    console.log(authData);
     //vacia la variable global
     setAuthenticationData(authData);
   };
